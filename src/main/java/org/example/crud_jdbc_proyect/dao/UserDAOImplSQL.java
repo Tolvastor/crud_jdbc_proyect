@@ -42,19 +42,14 @@ public class UserDAOImplSQL implements UserDAO {
     }
 
     @Override
-    public User findByUsername(String username){
-        List<User> users = jdbcTemplate.query("select * from user where username = ?",)
-        String sql = """
-                insert into user (username, password)
-                values (                ?,      ?)
-                """;
-        (ResultSet rs, int rowNum) -> User.builder()
+    public User findByUsername(String username) {
+        String sql = "select * from user where username = ?";
+        List<User> users = jdbcTemplate.query(sql, (ResultSet rs, int rowNum) -> User.builder()
                 .id(rs.getLong("id"))
                 .username(rs.getString("username"))
                 .password(rs.getString("password"))
-                .build()
-                , username);
-return users.isEmpty() ? null : users.get(0);
+                .build(), username);
+        return users.isEmpty() ? null : users.get(0);
     }
 
 }

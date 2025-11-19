@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Pirámide de gatos</title>
+</head>
+
+<body class="bg-light">
+<div class="container mt-4">
+
+    <a href="/logout" class="btn btn-danger mb-3">Cerrar sesión</a>
+
+    <h2 class="text-center mb-4">Generador de Pirámide de Gatos</h2>
+
+    <form method="post" action="/pyramid" class="mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <input type="number" min="1" name="height"
+                       placeholder="Altura"
+                       class="form-control"/>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">Generar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="text-center" th:if="${height}">
+        <h4>Pirámide de altura: <span th:text="${height}"></span></h4>
+
+        <div class="mt-3">
+            <div th:each="row : ${#numbers.sequence(1, height)}">
+                <span th:each="i : ${#numbers.sequence(1, row)}">
+                    <img src="https://placekitten.com/60/60" class="m-1"/>
+                </span>
+                <br/>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
